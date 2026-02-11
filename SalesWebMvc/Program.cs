@@ -2,21 +2,42 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SalesWebMvc.Data;
 using System.Configuration;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure; // Adicione este using
-using Pomelo.EntityFrameworkCore.MySql; // Adicione este using
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure; 
+using Pomelo.EntityFrameworkCore.MySql; 
 
 var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddDbContext<SalesWebMvcContext>(options =>
         options.UseMySql(
             builder.Configuration.GetConnectionString("SalesWebMvcContext"),
-            ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("SalesWebMvcContext")), // Corrige o erro CS1503
+            ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("SalesWebMvcContext")),
             mySqlOptions => mySqlOptions.MigrationsAssembly("SalesWebMvc")
         ));
+
+//Addscoped
+
+builder.Services.AddScoped<SeedingService>();
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    try
+    {
+        var seedingService = services.GetRequiredService<SeedingService>();
+        seedingService.Seed();
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Erro ao executar o seeding");
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
