@@ -5,6 +5,8 @@ using System.Configuration;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure; 
 using Pomelo.EntityFrameworkCore.MySql;
 using SalesWebMvc.Services;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddDbContext<SalesWebMvcContext>(options =>
@@ -13,6 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
             ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("SalesWebMvcContext")),
             mySqlOptions => mySqlOptions.MigrationsAssembly("SalesWebMvc")
         ));
+
 
 //Addscoped
 
@@ -41,6 +44,18 @@ using (var scope = app.Services.CreateScope())
         logger.LogError(ex, "Erro ao executar o seeding");
     }
 }
+
+//locale
+var enUS = new CultureInfo("en-US");
+var localizationOptions = new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture(enUS),
+    SupportedCultures = new List<CultureInfo> { enUS },
+    SupportedUICultures = new List<CultureInfo> { enUS }
+};
+
+app.UseRequestLocalization(localizationOptions);
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
