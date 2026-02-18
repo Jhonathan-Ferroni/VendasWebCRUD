@@ -17,6 +17,7 @@ This project demonstrates a practical, structured CRUD system for managing busin
 - [Database and MySQL Connection](#database-and-mysql-connection)
 - [Migrations](#migrations)
 - [Validation System](#validation-system)
+- [Async Operations and Delete Exception Handling](#async-operations-and-delete-exception-handling)
 - [How to Run the Project](#how-to-run-the-project)
 - [HTTP Routing](#http-routing)
 - [Seed Data](#seed-data)
@@ -225,6 +226,15 @@ The project includes a layered validation approach:
 - **Client-side validation** using **jQuery Validation** + **Unobtrusive Validation**, providing immediate feedback in forms.
 
 This helps keep invalid data from being submitted and improves UX by showing validation messages early.
+
+---
+
+## Async Operations and Delete Exception Handling
+
+The project also applies recent reliability improvements:
+
+- **Asynchronous operations (`async` / `await`)** are used across service/controller flows to keep I/O-bound operations non-blocking and improve scalability under concurrent requests.
+- **Delete exception handling** was added to protect delete flows and return controlled application behavior when integrity constraints or related-record conflicts occur.
 
 ---
 
