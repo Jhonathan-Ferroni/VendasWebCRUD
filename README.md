@@ -16,6 +16,7 @@ This project demonstrates a practical, structured CRUD system for managing busin
 - [Project Structure](#project-structure)
 - [Database and MySQL Connection](#database-and-mysql-connection)
 - [Migrations](#migrations)
+- [Validation System](#validation-system)
 - [How to Run the Project](#how-to-run-the-project)
 - [HTTP Routing](#http-routing)
 - [Seed Data](#seed-data)
@@ -187,7 +188,7 @@ Default local example in `appsettings.json`:
 
 ```json
 "ConnectionStrings": {
-  "SalesWebMvcContext": "server=localhost;userid=developer;password=1234567;database=saleswebmvcappdb"
+  "SalesWebMvcContext": "server=localhost;userid=YOUR_USER;password=YOUR_PASSWORD;database=saleswebmvcappdb"
 }
 ```
 
@@ -214,6 +215,16 @@ To create a new migration:
 ```bash
 dotnet ef migrations add <MigrationName> --project SalesWebMvc
 ```
+
+---
+## Validation System
+
+The project includes a layered validation approach:
+
+- **Server-side validation** through model validation attributes and MVC model binding checks.
+- **Client-side validation** using **jQuery Validation** + **Unobtrusive Validation**, providing immediate feedback in forms.
+
+This helps keep invalid data from being submitted and improves UX by showing validation messages early.
 
 ---
 
