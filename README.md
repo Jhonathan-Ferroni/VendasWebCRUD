@@ -18,6 +18,7 @@ This project demonstrates a practical, structured CRUD system for managing busin
 - [Migrations](#migrations)
 - [Validation System](#validation-system)
 - [Async Operations and Delete Exception Handling](#async-operations-and-delete-exception-handling)
+- [Sales Search Navigation Views](#sales-search-navigation-views)
 - [How to Run the Project](#how-to-run-the-project)
 - [HTTP Routing](#http-routing)
 - [Seed Data](#seed-data)
@@ -235,6 +236,17 @@ The project also applies recent reliability improvements:
 
 - **Asynchronous operations (`async` / `await`)** are used across service/controller flows to keep I/O-bound operations non-blocking and improve scalability under concurrent requests.
 - **Delete exception handling** was added to protect delete flows and return controlled application behavior when integrity constraints or related-record conflicts occur.
+
+---
+
+## Sales Search Navigation Views
+
+The project now includes dedicated sales search navigation views to improve how users explore sales data:
+
+- **Simple Search** for quick filtering with a streamlined navigation path.
+- **Grouping Search** for aggregated and grouped visualization of sales results.
+
+These views make sales consultation more intuitive while keeping navigation aligned with the MVC flow.
 
 ---
 
